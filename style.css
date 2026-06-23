@@ -1,0 +1,719 @@
+/* ==========================================================================
+   RESET & VARIÁVEIS DO SISTEMA DE DESIGN
+   ========================================================================== */
+:root {
+    --bg-primary: #f8fafc;
+    --bg-secondary: #ffffff;
+    --color-primary: #0f172a;
+    --color-secondary: #334155;
+    --color-muted: #64748b;
+    --color-accent: #2563eb;
+    --color-success: #10b981;
+    
+    --font-main: 'Plus Jakarta Sans', sans-serif;
+    --border-radius: 12px;
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --container-width: 1200px;
+}
+
+/* FIX: scroll-behavior movido para html, não no seletor universal */
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-main);
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--color-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* ==========================================================================
+   COMPONENTES GLOBAIS REUSÁVEIS
+   ========================================================================== */
+.container {
+    width: 100%;
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    border: none;
+    min-height: 48px; /* FIX: área de toque mínima para acessibilidade mobile */
+}
+
+.btn-primary {
+    background-color: var(--color-success);
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #059669;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.2);
+}
+
+/* FIX: estado de carregamento do botão de submit */
+.btn-primary:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-secondary {
+    background-color: var(--color-primary);
+    color: #ffffff;
+}
+
+.btn-secondary:hover {
+    background-color: #1e293b;
+}
+
+.btn-text {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    background: transparent;
+    color: var(--color-primary);
+    padding: 10px;
+}
+
+.btn-text:hover {
+    color: var(--color-accent);
+}
+
+.btn-full {
+    width: 100%;
+}
+
+.badge {
+    display: inline-block;
+    background-color: rgba(37, 99, 235, 0.08);
+    color: var(--color-accent);
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.section-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 56px auto;
+}
+
+.section-header h2 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+}
+
+.section-header p {
+    color: var(--color-secondary);
+    font-size: 1.1rem;
+}
+
+/* ==========================================================================
+   HEADER & NAVEGAÇÃO
+   ========================================================================== */
+.header {
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px); /* FIX: prefixo Safari */
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.05);
+    padding: 16px 0;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 1.35rem;
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.logo span {
+    color: var(--color-accent);
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.nav-menu a:not(.btn) {
+    text-decoration: none;
+    color: var(--color-secondary);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color var(--transition-fast);
+}
+
+.nav-menu a:not(.btn):hover {
+    color: var(--color-accent);
+}
+
+.menu-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    cursor: pointer;
+    /* FIX: área de toque mínima */
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ==========================================================================
+   HERO SECTION
+   ========================================================================== */
+.hero {
+    padding: 56px 0 48px;
+    background: radial-gradient(circle at 90% 10%, rgba(37, 99, 235, 0.03) 0%, transparent 40%);
+}
+
+.hero-container {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 48px;
+}
+
+.hero-content h1 {
+    /* FIX: font-size fluido com clamp() — em telas pequenas o valor fixo de 3.5rem
+       estourava o container e quebrava palavras de forma feia */
+    font-size: clamp(1.85rem, 7vw + 0.5rem, 3.5rem);
+    /* FIX: era "line-weight" (inválido) — corrigido para "line-height" */
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+}
+
+.hero-content p {
+    font-size: clamp(1rem, 2vw + 0.6rem, 1.2rem);
+    color: var(--color-secondary);
+    margin-bottom: 28px;
+    max-width: 540px;
+}
+
+.hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.hero-image img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--border-radius);
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.06);
+    border: 1px solid rgba(15, 23, 42, 0.05);
+}
+
+/* ==========================================================================
+   BENEFÍCIOS / PARA QUEM É
+   ========================================================================== */
+.beneficios {
+    padding: 100px 0;
+    background-color: var(--bg-secondary);
+}
+
+.beneficios-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+}
+
+.beneficio-card {
+    padding: 40px 32px;
+    background: var(--bg-primary);
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(15, 23, 42, 0.03);
+}
+
+.icon-box {
+    width: 56px;
+    height: 56px;
+    background-color: rgba(37, 99, 235, 0.08);
+    color: var(--color-accent);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+}
+
+.beneficio-card h3 {
+    font-size: 1.35rem;
+    margin-bottom: 12px;
+}
+
+.beneficio-card p {
+    color: var(--color-muted);
+}
+
+/* ==========================================================================
+   SERVIÇOS
+   ========================================================================== */
+.servicos {
+    padding: 100px 0;
+}
+
+.servicos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+}
+
+.servico-card {
+    background-color: var(--bg-secondary);
+    padding: 48px 36px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(15, 23, 42, 0.04);
+}
+
+.servico-icon {
+    font-size: 2.25rem;
+    color: var(--color-primary);
+    margin-bottom: 24px;
+}
+
+.servico-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 16px;
+}
+
+.servico-card p {
+    color: var(--color-secondary);
+    font-size: 0.98rem;
+}
+
+/* ==========================================================================
+   EXPERIÊNCIA / PROVA SOCIAL
+   ========================================================================== */
+.experiencia {
+    padding: 100px 0;
+    background-color: var(--bg-secondary);
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+}
+
+.portfolio-card {
+    background: var(--bg-primary);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    border: 1px solid rgba(15, 23, 42, 0.04);
+}
+
+.portfolio-img-wrapper {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    background-color: #e2e8f0;
+    overflow: hidden;
+}
+
+/* FIX: .portfolio-link não tinha NENHUM CSS — o link existia, mas era um
+   ícone solto sem posicionamento. Agora cobre toda a foto (clicável) e
+   mostra um selo "abrir site" no canto. */
+.portfolio-link {
+    position: absolute;
+    inset: 0;
+    display: block;
+}
+
+.portfolio-link img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform var(--transition-normal);
+}
+
+.portfolio-link i {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(15, 23, 42, 0.85);
+    color: #ffffff;
+    border-radius: 50%;
+    font-size: 0.9rem;
+    transition: transform var(--transition-fast), background-color var(--transition-fast);
+}
+
+.portfolio-card:hover .portfolio-img-wrapper img {
+    transform: scale(1.03);
+}
+
+.portfolio-card:hover .portfolio-link i {
+    background-color: var(--color-accent);
+    transform: scale(1.08);
+}
+
+.portfolio-content {
+    padding: 36px;
+}
+
+.client-tag {
+    display: inline-block;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--color-muted);
+    margin-bottom: 12px;
+}
+
+.portfolio-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+}
+
+.portfolio-content .description {
+    color: var(--color-secondary);
+    margin-bottom: 24px;
+}
+
+.results {
+    display: flex;
+    gap: 24px;
+    border-top: 1px solid rgba(15, 23, 42, 0.08);
+    padding-top: 20px;
+}
+
+.result-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.result-item strong {
+    color: var(--color-accent);
+    font-size: 1.1rem;
+}
+
+.result-item span {
+    font-size: 0.88rem;
+    color: var(--color-muted);
+}
+
+/* ==========================================================================
+   SEÇÃO DE CONTATO & FORMULÁRIO
+   ========================================================================== */
+.contato {
+    padding: 100px 0;
+}
+
+.contato-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+}
+
+.contato-info h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.contato-info p {
+    font-size: 1.1rem;
+    color: var(--color-secondary);
+    margin-bottom: 40px;
+}
+
+.info-items {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 1.05rem;
+    font-weight: 500;
+}
+
+.info-item i {
+    color: var(--color-accent);
+    font-size: 1.25rem;
+}
+
+.contato-form-wrapper {
+    background-color: var(--bg-secondary);
+    padding: 48px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.04);
+    border: 1px solid rgba(15, 23, 42, 0.02);
+}
+
+.contato-form .form-group {
+    margin-bottom: 24px;
+}
+
+.contato-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.contato-form input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: var(--bg-primary);
+    transition: border var(--transition-fast);
+}
+
+.contato-form input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    /* FIX: box-shadow de foco para acessibilidade */
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* FIX: estado de erro no input */
+.contato-form input.input-error {
+    border-color: #ef4444;
+}
+
+/* ==========================================================================
+   BOTÃO FLUTUANTE DE WHATSAPP (estava ausente no projeto original)
+   ========================================================================== */
+.whatsapp-float {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 999;
+    width: 60px;
+    height: 60px;
+    background-color: var(--color-success);
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+    text-decoration: none;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 28px rgba(16, 185, 129, 0.5);
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+.footer {
+    background-color: var(--color-primary);
+    color: #94a3b8;
+    padding: 40px 0;
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE
+   ========================================================================== */
+@media (max-width: 968px) {
+    .menu-toggle {
+        display: flex; /* FIX: era "display: block" — "flex" alinha o ícone corretamente */
+    }
+
+    /* FIX: menu mobile usa visibility/opacity em vez de display:none/flex
+       para evitar conflito com a regra base do desktop */
+    .nav-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: var(--bg-secondary);
+        flex-direction: column;
+        padding: 32px;
+        gap: 24px;
+        border-bottom: 1px solid rgba(15, 23, 42, 0.1);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        /* FIX: substituído display:none por visibility+opacity para transição suave */
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity var(--transition-normal), visibility var(--transition-normal);
+        display: flex; /* sempre flex, controlado por visibility */
+    }
+
+    .nav-menu.active {
+        visibility: visible;
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .hero-container, 
+    .contato-container {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .hero-content {
+        text-align: center;
+    }
+    
+    .hero-content p {
+        margin: 0 auto 28px auto;
+    }
+
+    .hero-actions {
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+    }
+
+    .hero-actions .btn {
+        width: 100%;
+    }
+
+    /* FIX: limita a altura da imagem da hero em telas estreitas/altas,
+       evitando que ela empurre o conteúdo para fora da primeira viewport */
+    .hero-image img {
+        max-height: 320px;
+        object-fit: cover;
+    }
+
+    .beneficios-grid,
+    .servicos-grid,
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    
+    .section-header h2 {
+        font-size: 1.85rem;
+    }
+    
+    .contato-form-wrapper {
+        padding: 24px;
+    }
+    
+    .footer-container {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
+
+    .whatsapp-float {
+        bottom: 20px;
+        right: 20px;
+        width: 54px;
+        height: 54px;
+        font-size: 1.5rem;
+    }
+}
+
+/* FIX: refinamento extra para celulares pequenos (320px–480px),
+   onde os paddings/tamanhos do breakpoint de tablet ainda ficam largos demais */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 16px;
+    }
+
+    .hero {
+        padding: 40px 0 36px;
+    }
+
+    .badge {
+        font-size: 0.78rem;
+        padding: 5px 14px;
+        margin-bottom: 12px;
+    }
+
+    .hero-content h1 {
+        margin-bottom: 14px;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    .hero-image img {
+        max-height: 220px;
+    }
+
+    .btn {
+        padding: 13px 22px;
+        font-size: 0.95rem;
+    }
+
+    .section-header h2 {
+        font-size: 1.6rem;
+    }
+
+    .section-header {
+        margin-bottom: 40px;
+    }
+}
+
+/* FIX: respeitar preferência de movimento reduzido (acessibilidade) */
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition-duration: 0.01ms !important; }
+}
