@@ -424,6 +424,112 @@ body {
 }
 
 /* ==========================================================================
+   EXEMPLOS DE CATÁLOGOS DIGITAIS (card único, totalmente clicável)
+   ========================================================================== */
+.catalogo-card {
+    display: grid;
+    grid-template-columns: 1fr;
+    background: var(--bg-primary);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    border: 1px solid rgba(15, 23, 42, 0.04);
+    text-decoration: none;
+    color: inherit;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.catalogo-card:hover,
+.catalogo-card:focus-visible {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.10);
+}
+
+.catalogo-preview {
+    position: relative;
+    height: 220px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.catalogo-tag {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+.catalogo-mockup {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 1.8rem;
+    transition: transform var(--transition-fast);
+}
+
+.catalogo-card:hover .catalogo-mockup {
+    transform: scale(1.08);
+}
+
+.catalogo-content {
+    padding: 36px;
+}
+
+.catalogo-content .client-tag {
+    display: inline-block;
+    margin-bottom: 8px;
+}
+
+.catalogo-content h3 {
+    margin-bottom: 12px;
+}
+
+.catalogo-content .description {
+    margin-bottom: 20px;
+}
+
+.catalogo-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    color: var(--color-accent);
+}
+
+.catalogo-cta i {
+    font-size: 0.85rem;
+    transition: transform var(--transition-fast);
+}
+
+.catalogo-card:hover .catalogo-cta i {
+    transform: translate(2px, -2px);
+}
+
+@media (min-width: 768px) {
+    .catalogo-card {
+        grid-template-columns: 320px 1fr;
+    }
+
+    .catalogo-preview {
+        height: 100%;
+    }
+}
+
+/* ==========================================================================
    CARD DE PORTFÓLIO EM DESTAQUE (Landing Page + Catálogo Digital)
    ========================================================================== */
 .portfolio-card-featured {

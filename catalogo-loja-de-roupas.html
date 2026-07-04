@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ateliê Alma | Catálogo Digital de Moda Feminina</title>
+<meta name="description" content="Catálogo digital de moda feminina do Ateliê Alma: vestidos, blusas, saias, calças e acessórios. Veja as peças e peça pelo WhatsApp.">
+<meta name="robots" content="index, follow">
+
+<!-- ===== FONTES GOOGLE (CDN) ===== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================
+   IDENTIDADE VISUAL — Ateliê Alma (Loja de Roupas Femininas)
+   ---------------------------------------------------------
+   Racional da paleta: fugimos do "terracota + creme" que virou
+   clichê de IA. Escolhemos um vinho profundo (--primary), que
+   remete a alfaiataria e a tecidos nobres, combinado com um
+   dourado velho (--accent) que lembra bijuteria/metal antigo —
+   comum em vitrines de moda feminina — sobre um fundo areia
+   quente (--bg), mais aconchegante que um branco puro.
+   Tipografia: Fraunces (serifada com personalidade, variável)
+   para títulos — transmite elegância editorial sem ser óbvia —
+   e Karla (sans-serif humanista) para textos e UI.
+   ========================================================= */
+:root {
+  --primary: #6B2737;      /* vinho profundo — alfaiataria, sofisticação */
+  --primary-dark: #4A1B27; /* variação mais escura para hover/texto sobre claro */
+  --accent: #B08D2B;       /* dourado velho — metal, bijuteria, destaque de CTA */
+  --bg: #FAF5EF;           /* areia quente — fundo principal */
+  --bg-alt: #F1E7DC;       /* areia um pouco mais escura — seções alternadas */
+  --text: #241417;         /* quase preto com tom vinho */
+  --text-light: #7A6266;   /* texto secundário */
+  --white: #FFFFFF;
+  --radius: 10px;
+  --radius-lg: 20px;
+  --shadow: 0 8px 24px rgba(36, 20, 23, 0.10);
+  --shadow-lg: 0 20px 50px rgba(36, 20, 23, 0.22);
+  --transition: 0.25s ease;
+  --space-xs: 8px;
+  --space-sm: 14px;
+  --space-md: 24px;
+  --space-lg: 40px;
+  --space-xl: 64px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Karla', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+
+h1, h2, h3 {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--primary-dark);
+}
+
+a { color: inherit; }
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+}
+
+/* ===== HEADER ===== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(250, 245, 239, 0.92);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(107, 39, 55, 0.12);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-sm) var(--space-md);
+}
+
+.logo {
+  font-family: 'Fraunces', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--primary);
+}
+
+.logo span {
+  display: block;
+  font-family: 'Karla', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-top: 2px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.icon-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: var(--primary);
+  transition: background var(--transition);
+}
+
+.icon-btn:hover { background: rgba(107, 39, 55, 0.08); }
+
+.icon-btn svg { width: 22px; height: 22px; }
+
+.badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--white);
+  font-size: 0.65rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0);
+  transition: transform var(--transition);
+}
+
+.badge.show { transform: scale(1); }
+
+/* ===== HERO ===== */
+.hero {
+  padding: var(--space-xl) 0 var(--space-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.hero-eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 6vw, 3.2rem);
+  max-width: 14ch;
+}
+
+.hero p {
+  color: var(--text-light);
+  font-size: 1.05rem;
+  max-width: 46ch;
+}
+
+.hero-stitch {
+  width: 100%;
+  height: 14px;
+  margin-top: var(--space-sm);
+}
+
+/* ===== FILTRO DE CATEGORIAS ===== */
+.filter-bar {
+  position: sticky;
+  top: 65px;
+  z-index: 30;
+  background: var(--bg);
+  padding: var(--space-sm) 0;
+  border-bottom: 1px solid rgba(107, 39, 55, 0.10);
+}
+
+.filter-scroll {
+  display: flex;
+  gap: var(--space-xs);
+  overflow-x: auto;
+  padding: 2px var(--space-md) 8px;
+  scrollbar-width: thin;
+}
+
+.filter-scroll::-webkit-scrollbar { height: 4px; }
+.filter-scroll::-webkit-scrollbar-thumb { background: rgba(107,39,55,0.25); border-radius: 999px; }
+
+.filter-pill {
+  flex: 0 0 auto;
+  padding: 9px 18px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(107, 39, 55, 0.25);
+  background: var(--white);
+  color: var(--text);
+  font-size: 0.88rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background var(--transition), color var(--transition), border-color var(--transition), transform var(--transition);
+}
+
+.filter-pill:hover { transform: translateY(-1px); }
+
+.filter-pill.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--white);
+}
+
+/* ===== GRID DE PRODUTOS ===== */
+.catalog-section { padding: var(--space-lg) 0 var(--space-xl); }
+
+.catalog-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+  gap: var(--space-sm);
+}
+
+.catalog-heading h2 { font-size: 1.6rem; }
+
+.result-count {
+  font-size: 0.85rem;
+  color: var(--text-light);
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-sm);
+}
+
+.product-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform var(--transition), box-shadow var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card.hidden { display: none; }
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.product-media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--bg-alt);
+}
+
+.product-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.product-card:hover .product-media img { transform: scale(1.05); }
+
+.fav-toggle {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.fav-toggle svg { width: 18px; height: 18px; transition: transform var(--transition); }
+.fav-toggle.active svg { fill: var(--accent); stroke: var(--accent); }
+.fav-toggle:active svg { transform: scale(1.2); }
+
+.product-info {
+  padding: var(--space-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.product-category {
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.product-name {
+  font-family: 'Fraunces', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.product-price {
+  margin-top: auto;
+  font-weight: 700;
+  color: var(--primary-dark);
+  font-size: 1rem;
+  padding-top: 6px;
+}
+
+.product-open-btn {
+  margin-top: 8px;
+  width: 100%;
+  padding: 10px;
+  border-radius: var(--radius);
+  background: var(--bg-alt);
+  color: var(--primary-dark);
+  font-weight: 700;
+  font-size: 0.82rem;
+  transition: background var(--transition);
+}
+
+.product-open-btn:hover { background: rgba(107,39,55,0.14); }
+
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: var(--space-xl) var(--space-md);
+  color: var(--text-light);
+}
+
+/* ===== MODAL ===== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(36, 20, 23, 0.55);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition);
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-box {
+  background: var(--white);
+  width: 100%;
+  max-width: 560px;
+  max-height: 92vh;
+  overflow-y: auto;
+  border-radius: 24px 24px 0 0;
+  transform: translateY(24px);
+  transition: transform var(--transition);
+  position: relative;
+}
+
+.modal-overlay.open .modal-box { transform: translateY(0); }
+
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(36,20,23,0.55);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+
+.modal-close svg { width: 18px; height: 18px; }
+
+.modal-media {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: var(--bg-alt);
+  overflow: hidden;
+  border-radius: 24px 24px 0 0;
+}
+
+.modal-media img { width: 100%; height: 100%; object-fit: cover; }
+
+.modal-content { padding: var(--space-md); }
+
+.modal-category {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  margin: 6px 0 10px;
+}
+
+.modal-desc {
+  color: var(--text-light);
+  margin-bottom: var(--space-sm);
+}
+
+.modal-price {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  margin-bottom: var(--space-md);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 20px;
+  border-radius: var(--radius);
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: filter var(--transition), transform var(--transition);
+  flex: 1 1 auto;
+}
+
+.btn:hover { transform: translateY(-1px); }
+
+.btn-whatsapp {
+  background: var(--primary);
+  color: var(--white);
+}
+
+.btn-whatsapp:hover { filter: brightness(1.08); }
+
+.btn-fav {
+  background: var(--bg-alt);
+  color: var(--primary-dark);
+}
+
+.btn-fav svg { width: 18px; height: 18px; }
+.btn-fav.active svg { fill: var(--accent); stroke: var(--accent); }
+
+/* ===== FOOTER ===== */
+.site-footer {
+  background: var(--primary-dark);
+  color: rgba(255,255,255,0.85);
+  padding: var(--space-lg) 0;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.site-footer strong { color: var(--white); }
+
+/* ===== TABLET (min-width 640px) ===== */
+@media (min-width: 640px) {
+  .product-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
+
+  .hero-inner { max-width: 60ch; }
+
+  .modal-overlay { align-items: center; }
+  .modal-box { border-radius: 24px; max-height: 88vh; }
+  .modal-media { border-radius: 24px 24px 0 0; }
+
+  .header-inner { padding: var(--space-sm) var(--space-lg); }
+}
+
+/* ===== DESKTOP (min-width 1024px) ===== */
+@media (min-width: 1024px) {
+  .product-grid { grid-template-columns: repeat(4, 1fr); }
+
+  .hero {
+    padding-top: var(--space-xl);
+  }
+
+  .hero-inner { max-width: 50ch; }
+
+  .filter-bar { top: 73px; }
+
+  .catalog-heading h2 { font-size: 2rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo">Ateliê Alma<span>Moda Feminina</span></div>
+    <div class="header-actions">
+      <button class="icon-btn" id="favToggleBtn" aria-label="Ver peças favoritas">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"></path>
+        </svg>
+        <span class="badge" id="favBadge">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="container hero-inner">
+    <p class="hero-eyebrow">Catálogo digital</p>
+    <h1>Peças pensadas para o seu dia a dia, com detalhes que fazem a diferença</h1>
+    <p>Navegue pelas nossas coleções direto do celular, filtre por categoria, favorite o que ama e finalize o pedido em segundos, pelo WhatsApp — sem burocracia, sem cadastro.</p>
+  </div>
+</section>
+
+<!-- ===== FILTRO DE CATEGORIAS ===== -->
+<nav class="filter-bar" aria-label="Filtrar produtos por categoria">
+  <div class="filter-scroll" id="filterScroll">
+    <button class="filter-pill active" data-category="todos">Todos</button>
+    <button class="filter-pill" data-category="vestidos">Vestidos</button>
+    <button class="filter-pill" data-category="blusas">Blusas</button>
+    <button class="filter-pill" data-category="saias-calcas">Saias &amp; Calças</button>
+    <button class="filter-pill" data-category="acessorios">Acessórios</button>
+  </div>
+</nav>
+
+<!-- ===== CATÁLOGO / GRID DE PRODUTOS ===== -->
+<main>
+  <section class="catalog-section">
+    <div class="container">
+      <div class="catalog-heading">
+        <h2>Coleção atual</h2>
+        <span class="result-count" id="resultCount"></span>
+      </div>
+      <div class="product-grid" id="productGrid" role="list"></div>
+    </div>
+  </section>
+</main>
+
+<!-- ===== MODAL DE DETALHE DO PRODUTO ===== -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle" id="modalBox">
+    <button class="modal-close" id="modalCloseBtn" aria-label="Fechar detalhes do produto">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"></line><line x1="19" y1="5" x2="5" y2="19"></line></svg>
+    </button>
+    <div class="modal-media">
+      <img id="modalImg" src="" alt="">
+    </div>
+    <div class="modal-content">
+      <p class="modal-category" id="modalCategory"></p>
+      <h3 class="modal-title" id="modalTitle"></h3>
+      <p class="modal-desc" id="modalDesc"></p>
+      <p class="modal-price" id="modalPrice"></p>
+      <div class="modal-actions">
+        <a href="#" class="btn btn-whatsapp" id="modalWhatsapp" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.6-.8-1.9-.9-.2-.1-.5-.1-.7.1-.2.3-.7.9-.9 1-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.6-.7 1.9-1.3.2-.6.2-1.1.2-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.4C8.3 21.5 10.1 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.2c-1.7 0-3.3-.5-4.7-1.3l-.3-.2-3.2.9.9-3.1-.2-.3C3.6 14 3 12.1 3 12c0-5 4-9 9-9s9 4 9 9-4 9-9 9z"/></svg>
+          Peço no WhatsApp
+        </a>
+        <button class="btn btn-fav" id="modalFavBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"></path></svg>
+          <span id="modalFavLabel">Favoritar</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <div class="container">
+    <p>Catálogo de demonstração — Agência <strong>Alma Digital</strong></p>
+  </div>
+</footer>
+
+<script>
+// ===== DADOS DOS PRODUTOS (fictícios) =====
+// Imagens via picsum.photos com seed fixo (mesma imagem sempre, para consistência visual)
+const produtos = [
+  {
+    id: 1,
+    nome: "Vestido Midi Linho",
+    categoria: "vestidos",
+    categoriaLabel: "Vestidos",
+    preco: 289.90,
+    descricao: "Vestido midi em linho leve, caimento solto e cinto de amarrar na cintura. Perfeito para dias quentes, do trabalho ao happy hour.",
+    imagem: "https://picsum.photos/seed/vestido-midi-linho/600/750"
+  },
+  {
+    id: 2,
+    nome: "Vestido Longo Estampado",
+    categoria: "vestidos",
+    categoriaLabel: "Vestidos",
+    preco: 349.90,
+    descricao: "Vestido longo fluido com estampa exclusiva, alças ajustáveis e fenda lateral discreta. Uma peça só para ocasiões especiais.",
+    imagem: "https://picsum.photos/seed/vestido-longo-estampado/600/750"
+  },
+  {
+    id: 3,
+    nome: "Blusa Cropped Tricot",
+    categoria: "blusas",
+    categoriaLabel: "Blusas",
+    preco: 129.90,
+    descricao: "Cropped em tricot macio, gola redonda e acabamento canelado. Combina com calça de cintura alta ou saia midi.",
+    imagem: "https://picsum.photos/seed/blusa-cropped-tricot/600/750"
+  },
+  {
+    id: 4,
+    nome: "Blusa Manga Bufante",
+    categoria: "blusas",
+    categoriaLabel: "Blusas",
+    preco: 149.90,
+    descricao: "Blusa em viscose leve com mangas bufantes e punho ajustável. Um toque romântico para qualquer produção do dia a dia.",
+    imagem: "https://picsum.photos/seed/blusa-manga-bufante/600/750"
+  },
+  {
+    id: 5,
+    nome: "Calça Alfaiataria Wide Leg",
+    categoria: "saias-calcas",
+    categoriaLabel: "Saias & Calças",
+    preco: 219.90,
+    descricao: "Calça de alfaiataria com pernas largas e cintura alta, em tecido estruturado que não amassa. Elegância sem esforço.",
+    imagem: "https://picsum.photos/seed/calca-alfaiataria/600/750"
+  },
+  {
+    id: 6,
+    nome: "Saia Midi Plissada",
+    categoria: "saias-calcas",
+    categoriaLabel: "Saias & Calças",
+    preco: 179.90,
+    descricao: "Saia midi plissada com movimento fluido, cós elástico confortável. Veste bem em qualquer tipo de corpo.",
+    imagem: "https://picsum.photos/seed/saia-midi-plissada/600/750"
+  },
+  {
+    id: 7,
+    nome: "Brinco Argola Dourado",
+    categoria: "acessorios",
+    categoriaLabel: "Acessórios",
+    preco: 59.90,
+    descricao: "Argola média banhada a ouro, fecho de pressão seguro e leve no dia a dia. O acabamento que fecha qualquer look.",
+    imagem: "https://picsum.photos/seed/brinco-argola/600/750"
+  },
+  {
+    id: 8,
+    nome: "Bolsa Transversal Couro",
+    categoria: "acessorios",
+    categoriaLabel: "Acessórios",
+    preco: 249.90,
+    descricao: "Bolsa transversal em couro legítimo, compartimento interno para celular e cartões, alça regulável.",
+    imagem: "https://picsum.photos/seed/bolsa-transversal/600/750"
+  }
+];
+
+// Número de WhatsApp fictício da loja (demonstração)
+const NUMERO_WHATSAPP = "5511999999999";
+
+// ===== ESTADO EM MEMÓRIA (favoritos) =====
+// Obs.: mantido apenas em memória (sem localStorage), então reinicia a cada
+// recarregamento — comportamento aceitável para uma página de demonstração.
+let favoritos = new Set();
+let categoriaAtual = "todos";
+let produtoAberto = null;
+
+// ===== ELEMENTOS =====
+const productGrid = document.getElementById('productGrid');
+const resultCount = document.getElementById('resultCount');
+const filterScroll = document.getElementById('filterScroll');
+const favBadge = document.getElementById('favBadge');
+const favToggleBtn = document.getElementById('favToggleBtn');
+
+const modalOverlay = document.getElementById('modalOverlay');
+const modalBox = document.getElementById('modalBox');
+const modalCloseBtn = document.getElementById('modalCloseBtn');
+const modalImg = document.getElementById('modalImg');
+const modalCategory = document.getElementById('modalCategory');
+const modalTitle = document.getElementById('modalTitle');
+const modalDesc = document.getElementById('modalDesc');
+const modalPrice = document.getElementById('modalPrice');
+const modalWhatsapp = document.getElementById('modalWhatsapp');
+const modalFavBtn = document.getElementById('modalFavBtn');
+const modalFavLabel = document.getElementById('modalFavLabel');
+
+// ===== FORMATAÇÃO DE PREÇO =====
+function formatarPreco(valor) {
+  return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+}
+
+// ===== RENDERIZAÇÃO DO GRID =====
+function renderizarGrid(mostrarSoFavoritos) {
+  productGrid.innerHTML = '';
+
+  const lista = produtos.filter(p => {
+    const passaCategoria = categoriaAtual === 'todos' || p.categoria === categoriaAtual;
+    const passaFavorito = !mostrarSoFavoritos || favoritos.has(p.id);
+    return passaCategoria && passaFavorito;
+  });
+
+  if (lista.length === 0) {
+    const vazio = document.createElement('div');
+    vazio.className = 'empty-state';
+    vazio.textContent = mostrarSoFavoritos
+      ? 'Você ainda não favoritou nenhuma peça.'
+      : 'Nenhuma peça encontrada nessa categoria.';
+    productGrid.appendChild(vazio);
+    resultCount.textContent = '';
+    return;
+  }
+
+  resultCount.textContent = lista.length + (lista.length === 1 ? ' peça' : ' peças');
+
+  lista.forEach(produto => {
+    const card = document.createElement('article');
+    card.className = 'product-card';
+    card.setAttribute('role', 'listitem');
+
+    const ehFavorito = favoritos.has(produto.id);
+
+    card.innerHTML = `
+      <div class="product-media">
+        <img src="${produto.imagem}" alt="${produto.nome}, ${produto.categoriaLabel}" loading="lazy" width="600" height="750">
+        <button class="fav-toggle ${ehFavorito ? 'active' : ''}" aria-label="${ehFavorito ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}" data-id="${produto.id}">
+          <svg viewBox="0 0 24 24" fill="${ehFavorito ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="product-info">
+        <p class="product-category">${produto.categoriaLabel}</p>
+        <h3 class="product-name">${produto.nome}</h3>
+        <p class="product-price">${formatarPreco(produto.preco)}</p>
+        <button class="product-open-btn" data-id="${produto.id}">Ver detalhes</button>
+      </div>
+    `;
+
+    productGrid.appendChild(card);
+  });
+}
+
+// ===== FILTRO POR CATEGORIA =====
+filterScroll.addEventListener('click', (e) => {
+  const pill = e.target.closest('.filter-pill');
+  if (!pill) return;
+
+  document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+  pill.classList.add('active');
+
+  categoriaAtual = pill.dataset.category;
+  renderizarGrid(mostrandoFavoritos);
+});
+
+// ===== FAVORITOS (contador + toggle no grid) =====
+let mostrandoFavoritos = false;
+
+function atualizarBadgeFavoritos() {
+  favBadge.textContent = favoritos.size;
+  favBadge.classList.toggle('show', favoritos.size > 0);
+}
+
+function alternarFavorito(id) {
+  if (favoritos.has(id)) {
+    favoritos.delete(id);
+  } else {
+    favoritos.add(id);
+  }
+  atualizarBadgeFavoritos();
+}
+
+productGrid.addEventListener('click', (e) => {
+  const favBtn = e.target.closest('.fav-toggle');
+  const openBtn = e.target.closest('.product-open-btn');
+
+  if (favBtn) {
+    const id = Number(favBtn.dataset.id);
+    alternarFavorito(id);
+    renderizarGrid(mostrandoFavoritos);
+    return;
+  }
+
+  if (openBtn) {
+    const id = Number(openBtn.dataset.id);
+    abrirModal(id);
+  }
+});
+
+favToggleBtn.addEventListener('click', () => {
+  mostrandoFavoritos = !mostrandoFavoritos;
+  favToggleBtn.style.color = mostrandoFavoritos ? 'var(--accent)' : '';
+  renderizarGrid(mostrandoFavoritos);
+});
+
+// ===== MODAL DE DETALHE DO PRODUTO =====
+let ultimoElementoFocado = null;
+
+function abrirModal(id) {
+  const produto = produtos.find(p => p.id === id);
+  if (!produto) return;
+
+  produtoAberto = produto;
+  ultimoElementoFocado = document.activeElement;
+
+  modalImg.src = produto.imagem.replace('600/750', '600/450');
+  modalImg.alt = produto.nome;
+  modalCategory.textContent = produto.categoriaLabel;
+  modalTitle.textContent = produto.nome;
+  modalDesc.textContent = produto.descricao;
+  modalPrice.textContent = formatarPreco(produto.preco);
+
+  const mensagem = encodeURIComponent(`Olá! Tenho interesse na peça "${produto.nome}" (${formatarPreco(produto.preco)}) do catálogo do Ateliê Alma.`);
+  modalWhatsapp.href = `https://wa.me/${NUMERO_WHATSAPP}?text=${mensagem}`;
+
+  atualizarBotaoFavoritoModal();
+
+  modalOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  modalCloseBtn.focus();
+}
+
+function atualizarBotaoFavoritoModal() {
+  if (!produtoAberto) return;
+  const ehFavorito = favoritos.has(produtoAberto.id);
+  modalFavBtn.classList.toggle('active', ehFavorito);
+  modalFavLabel.textContent = ehFavorito ? 'Favoritado' : 'Favoritar';
+}
+
+function fecharModal() {
+  modalOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+  produtoAberto = null;
+  if (ultimoElementoFocado) ultimoElementoFocado.focus();
+}
+
+modalCloseBtn.addEventListener('click', fecharModal);
+
+// Fecha ao clicar fora do conteúdo (na área escura do overlay)
+modalOverlay.addEventListener('click', (e) => {
+  if (e.target === modalOverlay) fecharModal();
+});
+
+// Fecha com a tecla ESC + navegação por teclado dentro do modal (focus trap simples)
+document.addEventListener('keydown', (e) => {
+  if (!modalOverlay.classList.contains('open')) return;
+
+  if (e.key === 'Escape') {
+    fecharModal();
+    return;
+  }
+
+  if (e.key === 'Tab') {
+    const focaveis = modalBox.querySelectorAll('button, a[href], [tabindex]:not([tabindex="-1"])');
+    const primeiro = focaveis[0];
+    const ultimo = focaveis[focaveis.length - 1];
+
+    if (e.shiftKey && document.activeElement === primeiro) {
+      e.preventDefault();
+      ultimo.focus();
+    } else if (!e.shiftKey && document.activeElement === ultimo) {
+      e.preventDefault();
+      primeiro.focus();
+    }
+  }
+});
+
+modalFavBtn.addEventListener('click', () => {
+  if (!produtoAberto) return;
+  alternarFavorito(produtoAberto.id);
+  atualizarBotaoFavoritoModal();
+  renderizarGrid(mostrandoFavoritos);
+});
+
+// ===== INICIALIZAÇÃO =====
+renderizarGrid(mostrandoFavoritos);
+atualizarBadgeFavoritos();
+</script>
+
+</body>
+</html>
