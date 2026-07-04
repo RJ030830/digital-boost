@@ -32,6 +32,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
+    // VÍDEO DO CASE EM DESTAQUE (PLAY SOB DEMANDA)
+    // ==========================================
+    const featuredVideo = document.querySelector('.portfolio-video');
+    const videoPlayBtn = document.querySelector('.video-play-btn');
+
+    if (featuredVideo && videoPlayBtn) {
+        videoPlayBtn.addEventListener('click', () => {
+            featuredVideo.setAttribute('controls', '');
+            featuredVideo.play();
+            videoPlayBtn.classList.add('is-hidden');
+        });
+
+        // Ao terminar, volta pro estado inicial (poster + botão de play)
+        featuredVideo.addEventListener('ended', () => {
+            featuredVideo.removeAttribute('controls');
+            featuredVideo.load(); // reseta para o poster
+            videoPlayBtn.classList.remove('is-hidden');
+        });
+    }
+
+    // ==========================================
     // INTERCEPTAÇÃO E CAPTURA DO FORMULÁRIO (WHATSAPP DE ALTA CONVERSÃO)
     // ==========================================
     const leadForm = document.getElementById('leadForm');
