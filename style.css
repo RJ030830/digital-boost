@@ -296,10 +296,32 @@ body {
     padding: 100px 0;
 }
 
+/* FIX: mobile-first — base é 1 coluna (celular), escala para 2 (tablet)
+   e 4 (desktop) via min-width, em vez de definir para desktop e reverter
+   depois num max-width. Suporta os 4 cards (3 originais + Catálogo Digital). */
 .servicos-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
+    grid-template-columns: 1fr;
+    gap: 24px;
+}
+
+@media (min-width: 640px) {
+    .servicos-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 28px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .servicos-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 28px;
+    }
+
+    /* Cards ficam mais estreitos com 4 colunas; reduz padding lateral */
+    .servico-card {
+        padding: 40px 28px;
+    }
 }
 
 .servico-card {
@@ -724,7 +746,6 @@ body {
     }
 
     .beneficios-grid,
-    .servicos-grid,
     .portfolio-grid {
         grid-template-columns: 1fr;
         gap: 24px;
